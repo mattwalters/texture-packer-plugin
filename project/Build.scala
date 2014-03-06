@@ -1,49 +1,7 @@
 import sbt._
 import sbt.Keys._
-import eu.diversit.sbt.plugin.WebDavPlugin._
 
 object TexturePackerPluginBuild extends Build {
-  lazy val publishSettings = WebDav.scopedSettings ++ Seq[Project.Setting[_]](
-    version := "0.3",
-    publishMavenStyle := true,
-    publishArtifact in Test := false,
-    publishTo <<= version {
-      (v: String) =>
-        val nexus = "https://oss.sonatype.org/"
-        if (v.trim.endsWith("SNAPSHOT"))
-          Some("snapshots" at nexus + "content/repositories/snapshots")
-        else
-          Some("releases" at nexus + "service/local/staging/deploy/maven2")
-    },
-    credentials += {
-      val credsFile = (Path.userHome / ".credentials")
-      (if (credsFile.exists) Credentials(credsFile)
-      else Credentials(file("/private/belfry/.credentials/.credentials")))
-    },
-    pomIncludeRepository := {
-      _ => false
-    },
-    pomExtra := (
-      <url>https://github.com/tlazaro/texture-packer-plugin</url>
-        <licenses>
-          <license>
-            <name>BSD-style</name>
-            <url>http://www.opensource.org/licenses/bsd-license.php</url>
-            <distribution>repo</distribution>
-          </license>
-        </licenses>
-        <scm>
-          <url>git@github.com:tlazaro/texture-packer-plugin.git</url>
-          <connection>scm:git@github.com:tlazaro/texture-packer-plugin.git</connection>
-        </scm>
-        <developers>
-          <developer>
-            <id>tlazaro</id>
-            <name>Tomas Lazaro</name>
-            <url>https://github.com/tlazaro</url>
-          </developer>
-        </developers>)
-  )
 
   lazy val root = Project("root", file(".")) settings (publishSettings ++ Seq(
     name := "texture-packer-plugin",
