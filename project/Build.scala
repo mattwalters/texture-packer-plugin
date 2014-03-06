@@ -4,7 +4,7 @@ import eu.diversit.sbt.plugin.WebDavPlugin._
 
 object TexturePackerPluginBuild extends Build {
   lazy val publishSettings = WebDav.scopedSettings ++ Seq[Project.Setting[_]](
-    version := "0.2",
+    version := "0.3",
     publishMavenStyle := true,
     publishArtifact in Test := false,
     publishTo <<= version {

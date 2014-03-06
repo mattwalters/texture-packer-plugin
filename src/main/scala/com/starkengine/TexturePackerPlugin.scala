@@ -76,8 +76,8 @@ object TexturePackerPlugin extends Plugin {
     println("At least one of the files in %s have changed. Outputting TexturePacker result into %s.".format(subfolder, outFolder))
 
     // Run Texture Packer
-    val args = Array(subfolder.toString, outFolder.toString, subfolder.getName)
-    com.badlogic.gdx.tools.imagepacker.TexturePacker2.main(args)
+    com.badlogic.gdx.tools.texturepacker.TexturePacker.process(
+      subfolder.toString, outFolder.toString, subfolder.getName)
 
     Set[File]()
   }
